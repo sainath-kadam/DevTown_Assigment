@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavBarContainer = styled.nav`
-  position: fixed;
   top: 0;
   width: 100%;
   background: linear-gradient(#141e30, #243b55);

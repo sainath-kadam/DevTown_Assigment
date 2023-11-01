@@ -136,11 +136,11 @@ const ProductContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 const ProductItem = styled.div`
-  width: 20rem; 
+  width: 15rem; 
   height: 25rem;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.5);
