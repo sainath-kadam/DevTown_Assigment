@@ -117,7 +117,7 @@ export default ProductList;
 const ProductListContainer = styled.div`
   background: linear-gradient(#141e30, #243b55);
   min-height: 100vh;
-  padding: 2rem 5%;
+  padding: 1rem 5%;
 `;
 
 const FilterContainer = styled.div`
@@ -135,14 +135,13 @@ const FilterInput = styled.input`
 const ProductContainer = styled.div`
   display: flex;
   justify-content: space-around;
-
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 const ProductItem = styled.div`
-  width: 20rem; /* Reduced card width */
-  height: 25rem; /* Adjusted card height */
+  width: 20rem; 
+  height: 25rem;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.9375rem 1.5625rem rgba(0, 0, 0, 0.6);

@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProductForm from './Components/Product/ProductForm';
 import ProductList from './Components/Product/ProductList';
 import NavBar from './Components/Navbar/Navbar';
-
 const App = () => {
   return (
     <BrowserRouter>
