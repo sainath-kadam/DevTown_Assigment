@@ -1,16 +1,18 @@
-// App.js
 import React from 'react';
-import ProductForm from './Components/ProductForm';
-import ProductList from './Components/ProductList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProductForm from './Components/Product/ProductForm';
+import ProductList from './Components/Product/ProductList';
+import NavBar from './Components/Navbar/Navbar';
 
 const App = () => {
   return (
-    <div>
-      <h1>Add Product</h1>
-      <ProductForm />
-      <h1>Product List</h1>
-      <ProductList />
-    </div>
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<ProductForm />} />
+        <Route path="/all-products" element={<ProductList />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
