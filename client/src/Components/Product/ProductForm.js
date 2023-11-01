@@ -10,13 +10,34 @@ const ProductForm = () => {
     price: '',
   });
 
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/products', productData);
-    } catch (error) {
-      console.error('Error adding product:', error);
+    const form = e.target;
+    if (form.checkValidity()) {
+      try {
+        await axios.post('http://localhost:5000/products', productData);
+        setProductData({
+          image: '',
+          title: '',
+          description: '',
+          price: '',
+        });
+        setSubmitted(true);
+        setError(false);
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
+    } else {
+      setError(true);
     }
+  };
+
+  const handleInputChange = (e, key) => {
+    setProductData({ ...productData, [key]: e.target.value });
+    setSubmitted(false);
   };
 
   return (
@@ -26,31 +47,35 @@ const ProductForm = () => {
           type="text"
           placeholder="Image URL"
           value={productData.image}
-          onChange={(e) => setProductData({ ...productData, image: e.target.value })}
+          onChange={(e) => handleInputChange(e, 'image')}
+          required
         />
 
         <FormInput
           type="text"
           placeholder="Title"
           value={productData.title}
-          onChange={(e) => setProductData({ ...productData, title: e.target.value })}
+          onChange={(e) => handleInputChange(e, 'title')}
+          required
         />
 
         <FormInput
           type="text"
           placeholder="Description"
           value={productData.description}
-          onChange={(e) => setProductData({ ...productData, description: e.target.value })}
+          onChange={(e) => handleInputChange(e, 'description')}
+          required
         />
 
         <FormInput
           type="number"
           placeholder="Price"
           value={productData.price}
-          onChange={(e) => setProductData({ ...productData, price: e.target.value })}
+          onChange={(e) => handleInputChange(e, 'price')}
+          required
         />
-
         <SubmitButton type="submit">Add Product</SubmitButton>
+        {error && <ErrorMessage>Please fill in all details.</ErrorMessage>}
       </FormBox>
     </FormContainer>
   );
@@ -59,33 +84,38 @@ const ProductForm = () => {
 export default ProductForm;
 
 const FormContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(#141e30, #243b55);
+  padding: 3rem 1rem;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  margin-top: 0.5rem;
 `;
 
 const FormBox = styled.form`
-  width: 40rem;
+  width: 90%;
+  max-width: 40rem;
   padding: 2rem;
-  position: absolute;
   background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
+  box-shadow: 0 0.9375rem 1.5625rem rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-
 const FormInput = styled.input`
   width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
+  padding: 1rem 0;
+  font-size: 1rem;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
@@ -93,10 +123,10 @@ const FormInput = styled.input`
 
   &:focus ~ label,
   &:valid ~ label {
-    top: -20px;
+    top: -1.25rem;
     left: 0;
     color: #03e9f4;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 `;
 
@@ -104,34 +134,34 @@ const FormLabel = styled.label`
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px 0;
-  font-size: 16px;
+  padding: 1rem 0;
+  font-size: 1rem;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 `;
 
 const SubmitButton = styled.button`
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   color: #03e9f4;
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
-  letter-spacing: 4px;
+  transition: 0.5s;
+  letter-spacing: 0.25rem;
   display: inline-block;
   background: transparent;
   border: 1px solid #03e9f4;
   color: #03e9f4;
   text-align: center;
   cursor: pointer;
-  border-radius: 5px;
-  margin-top: 40px;
+  border-radius: 0.3125rem;
+  margin-top: 2.5rem;
 
   &:hover {
     background: #03e9f4;
     color: #fff;
-    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+    box-shadow: 0 0 0.3125rem #03e9f4, 0 0 1.25rem #03e9f4, 0 0 2.5rem #03e9f4, 0 0 5rem #03e9f4;
   }
 `;
